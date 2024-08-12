@@ -66,8 +66,10 @@
                     canvas.width = qrCodeImg.width;
                     canvas.height = qrCodeImg.height;
                     ctx.drawImage(qrCodeImg, 0, 0);
-                    var logoSize = qrCodeImg.width / 4;
-                    ctx.drawImage(logoImg, (qrCodeImg.width - logoSize) / 2, (qrCodeImg.height - logoSize) / 2, logoSize, logoSize);
+                    var logoSize = qrCodeImg.width / 3; // Adjust the size of the logo here
+                    var logoX = (qrCodeImg.width - logoSize) / 2;
+                    var logoY = (qrCodeImg.height - logoSize) / 2;
+                    ctx.drawImage(logoImg, logoX, logoY, logoSize, logoSize);
                     qrCodeImg.src = canvas.toDataURL();
                 };
             };
