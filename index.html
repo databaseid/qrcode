@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Custom QR Code Generator</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+    }
+    #qrcode {
+        margin: 20px auto;
+    }
+</style>
+</head>
+<body>
+<h1>Custom QR Code Generator</h1>
+
+<label for="qrcode-content">Enter text or URL:</label><br>
+<input type="text" id="qrcode-content" placeholder="Enter text or URL"><br><br>
+
+<label for="qrcode-color">Select QR code color for corners:</label><br>
+<input type="color" id="qrcode-color"><br><br>
+
+<label for="qrcode-inside-color">Select QR code color for inside:</label><br>
+<input type="color" id="qrcode-inside-color"><br><br>
+
+<label for="qrcode-logo">Upload logo for QR code (optional):</label><br>
+<input type="file" id="qrcode-logo"><br><br>
+
+<button onclick="generateQRCode()">Generate QR Code</button><br><br>
+
+<div id="qrcode"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator"></script>
+<script>
+    function generateQRCode() {
+        var content = document.getElementById('qrcode-content').value;
+        var cornerColor = document.getElementById('qrcode-color').value;
+        var insideColor = document.getElementById('qrcode-inside-color').value;
+        var logo = document.getElementById('qrcode-logo').files[0];
+
+        var qr = qrcode(0, 'M');
+        qr.addData(content);
+        qr.make();
+
+        var qrCodeDiv = document.getElementById('qrcode');
+        qrCodeDiv.innerHTML = qr.createImgTag(6, 0);
+
+        var qrCodeImg = qrCodeDiv.querySelector('img');
+        qrCodeImg.style.filter = `invert(100%) sepia(100%) saturate(0%) hue-rotate(55deg) brightness(100%)To create a custom QR code generator with different colors for the corners and the inside, along with the ability to include a logo, you can utilize the `qrcode-generator` library in JavaScript. Here's an updated code snippet that meets your requirements:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Custom QR Code Generator</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+    }
+    #qrcode {
+        margin: 20px auto;
+    }
+</style>
+</head>
+<body>
+<h1>Custom QR Code Generator</h1>
+
+<label for="qrcode-content">Enter text or URL:</label><br>
+<input type="text" id="qrcode-content" placeholder="Enter text or URL"><br><br>
+
+<label for="qrcode-color">Select QR code color for corners:</label><br>
+<input type="color" id="qrcode-color"><br><br>
+
+<label for="qrcode-inside-color">Select QR code color for inside:</label><br>
+<input type="color" id="qrcode-inside-color"><br><br>
+
+<label for="qrcode-logo">Upload logo for QR code (optional):</label><br>
+<input type="file" id="qrcode-logo"><br><br>
+
+<button onclick="generateQRCode()">Generate QR Code</button><br><br>
+
+<div id="qrcode"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator"></script>
+<script>
+    function generateQRCode() {
+        var content = document.getElementById('qrcode-content').value;
+        var cornerColor = document.getElementById('qrcode-color').value;
+        var insideColor = document.getElementById('qrcode-inside-color').value;
+        var logo = document.getElementById('qrcode-logo').files[0];
+
+        var qr = qrcode(0, 'M');
+        qr.addData(content);
+        qr.make();
+
+        var qrCodeDiv = document.getElementById('qrcode');
+        qrCodeDiv.innerHTML = qr.createImgTag(6, 0);
+
+        var qrCodeImg = qrCodeDiv.querySelector('img');
+        qrCodeImg.style.filter = `invert(100%) sepia(100%) saturate(0%) hue-rotate(55deg) brightness(100%) contrast(100%)`;
+        qrCodeImg.style.backgroundColor = cornerColor;
+        qrCodeImg.style.color = insideColor;
+
+        if (logo) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                qrCodeImg.src = e.target.result;
+            };
+            reader.readAsDataURL(logo);
+        }
+    }
+</script>
+</body>
+</html>
