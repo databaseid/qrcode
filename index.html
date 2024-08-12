@@ -29,7 +29,7 @@
 <label for="qrcode-logo">Upload logo for QR code (optional):</label><br>
 <input type="file" id="qrcode-logo"><br><br>
 
-<button onclick="generateQRCode()">Generate QR Code</button><br><br>
+<button id="generateBtn">Generate QR Code</button><br><br>
 
 <div id="qrcode"></div>
 
@@ -37,6 +37,10 @@
 
 <script src="https://cdn.jsdelivr.net/npm/qrcode-generator"></script>
 <script>
+    document.getElementById('generateBtn').addEventListener('click', function() {
+        generateQRCode();
+    });
+
     function generateQRCode() {
         var content = document.getElementById('qrcode-content').value;
         var cornerColor = document.getElementById('qrcode-color').value;
