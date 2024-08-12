@@ -74,7 +74,9 @@
                     qr._htOption.logo = {
                         src: logoImg.src,
                         width: logoSize,
-                        height: logoSize
+                        height: logoSize,
+                        x: null, // Centering the logo horizontally
+                        y: null  // Centering the logo vertically
                     };
                     qr.makeCode(content);
                 };
