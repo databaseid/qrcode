@@ -32,7 +32,7 @@
 <input type="color" id="qrcode-color1" value="#000000"><br><br>
 
 <label for="qrcode-color2">Select QR code color for corners:</label><br>
-<input type="color" id="qrcode-color2" value="#FFFFFF"><br><br>
+<input type="color" id="qrcode-color2" value="#FF0000"><br><br>
 
 <label for="qrcode-color3">Select QR code background color:</label><br>
 <input type="color" id="qrcode-color3" value="#FFFFFF"><br><br>
@@ -60,7 +60,7 @@
             width: 128,
             height: 128,
             colorDark: color1,
-            colorLight: color2,
+            colorLight: color3,
             correctLevel: QRCode.CorrectLevel.L
         });
 
@@ -83,8 +83,8 @@
         }
 
         qr._htOption.colorDark = color1;
-        qr._htOption.colorLight = color2;
-        qr._htOption.color3 = color3; // Background color
+        qr._htOption.colorLight = color3;
+        qr._htOption.color3 = color2; // Corner color
 
         document.getElementById('downloadBtn').style.display = 'block';
     }
