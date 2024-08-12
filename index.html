@@ -28,14 +28,14 @@
 <label for="qrcode-content">Enter text or URL:</label><br>
 <input type="text" id="qrcode-content" placeholder="Enter text or URL"><br><br>
 
-<label for="qrcode-color1">Select QR code color for points:</label><br>
-<input type="color" id="qrcode-color1" value="#000000"><br><br>
+<label for="qrcode-color">Select QR code color for points:</label><br>
+<input type="color" id="qrcode-color" value="#000000"><br><br>
 
-<label for="qrcode-color2">Select QR code color for corners:</label><br>
-<input type="color" id="qrcode-color2" value="#FF0000"><br><br>
+<label for="qrcode-inside-color">Select QR code background color:</label><br>
+<input type="color" id="qrcode-inside-color" value="#FFFFFF"><br><br>
 
-<label for="qrcode-color3">Select QR code background color:</label><br>
-<input type="color" id="qrcode-color3" value="#FFFFFF"><br><br>
+<label for="qrcode-corner-color">Select QR code color for corners:</label><br>
+<input type="color" id="qrcode-corner-color" value="#FF0000"><br><br>
 
 <label for="qrcode-logo">Upload logo for QR code (optional):</label><br>
 <input type="file" id="qrcode-logo"><br><br>
@@ -50,17 +50,17 @@
 <script>
     function generateQRCode() {
         var content = document.getElementById('qrcode-content').value;
-        var color1 = document.getElementById('qrcode-color1').value;
-        var color2 = document.getElementById('qrcode-color2').value;
-        var color3 = document.getElementById('qrcode-color3').value;
+        var color = document.getElementById('qrcode-color').value;
+        var insideColor = document.getElementById('qrcode-inside-color').value;
+        var cornerColor = document.getElementById('qrcode-corner-color').value;
         var logo = document.getElementById('qrcode-logo').files[0];
 
         var qr = new QRCode(document.getElementById("qrcode"), {
             text: content,
             width: 128,
             height: 128,
-            colorDark: color1,
-            colorLight: color3,
+            colorDark: color,
+            colorLight: insideColor,
             correctLevel: QRCode.CorrectLevel.L
         });
 
@@ -82,9 +82,9 @@
             reader.readAsDataURL(logo);
         }
 
-        qr._htOption.colorDark = color1;
-        qr._htOption.colorLight = color3;
-        qr._htOption.color3 = color2; // Corner color
+        qr._htOption.colorDark = color;
+        qr._htOption.colorLight = insideColor;
+        qr._htOption.color3 = cornerColor; // Corner color
 
         document.getElementById('downloadBtn').style.display = 'block';
     }
