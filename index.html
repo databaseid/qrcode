@@ -15,6 +15,10 @@
     }
     #logo {
         position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        max-width: 30%;
     }
 </style>
 </head>
@@ -70,9 +74,7 @@
                     qr._htOption.logo = {
                         src: logoImg.src,
                         width: logoSize,
-                        height: logoSize,
-                        x: (qr._htOption.width - logoSize) / 2,
-                        y: (qr._htOption.width - logoSize) / 2
+                        height: logoSize
                     };
                     qr.makeCode(content);
                 };
