@@ -50,7 +50,8 @@
         qr.make();
 
         var qrCodeDiv = document.getElementById('qrcode');
-        qrCodeDiv.innerHTML = qr.createImgTag(6, 0);
+        qrCodeDiv.innerHTML = '';
+        qrCodeDiv.appendChild(qr.createImgTag(6, 0));
 
         var qrCodeImg = qrCodeDiv.querySelector('img');
         qrCodeImg.style.backgroundColor = cornerColor;
