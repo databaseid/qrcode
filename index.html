@@ -9,36 +9,55 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
         }
 
-        #qr-input {
-            width: 80%;
-            max-width: 300px;
+        #container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"],
+        input[type="color"],
+        input[type="range"],
+        input[type="file"],
+        button {
+            margin: 10px 0;
             padding: 5px;
-            margin: 20px auto;
+            width: 100%;
+            max-width: 300px;
+            box-sizing: border-box;
         }
 
-        #qr-code {
+        canvas {
+            display: block;
             margin: 20px auto;
-        }
-
-        #logo-input {
-            margin-top: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
         }
     </style>
 </head>
 
 <body>
-    <h1>Custom QR Code Generator</h1>
-    <input type="text" id="qr-input" placeholder="Enter URL or numbers">
-    <br>
-    <input type="color" id="qr-color" value="#000000"> QR Code Color
-    <br>
-    <input type="range" id="qr-size" min="200" max="600" value="300"> QR Code Size
-    <br>
-    <input type="file" id="logo-input"> Select Logo
-    <br>
-    <canvas id="qr-code"></canvas>
+    <div id="container">
+        <h1>Custom QR Code Generator</h1>
+        <input type="text" id="qr-input" placeholder="Enter URL or numbers">
+        <input type="color" id="qr-color" value="#000000"> QR Code Color
+        <input type="range" id="qr-size" min="200" max="600" value="300"> QR Code Size
+        <input type="file" id="logo-input"> Select Logo
+        <button id="generate-btn">Generate QR Code</button>
+        <canvas id="qr-code"></canvas>
+    </div>
 
     <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
     <script>
@@ -75,10 +94,7 @@
             }
         }
 
-        document.getElementById("qr-input").addEventListener("input", generateQRCode);
-        document.getElementById("qr-color").addEventListener("change", generateQRCode);
-        document.getElementById("qr-size").addEventListener("input", generateQRCode);
-        document.getElementById("logo-input").addEventListener("change", generateQRCode);
+        document.getElementById("generate-btn").addEventListener("click", generateQRCode);
 
         generateQRCode();
     </script>
