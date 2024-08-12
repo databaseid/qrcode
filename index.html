@@ -28,14 +28,14 @@
 <label for="qrcode-content">Enter text or URL:</label><br>
 <input type="text" id="qrcode-content" placeholder="Enter text or URL"><br><br>
 
-<label for="qrcode-color1">Select QR code color for section 1:</label><br>
+<label for="qrcode-color1">Select QR code color for points:</label><br>
 <input type="color" id="qrcode-color1" value="#000000"><br><br>
 
-<label for="qrcode-color2">Select QR code color for section 2:</label><br>
+<label for="qrcode-color2">Select QR code color for corners:</label><br>
 <input type="color" id="qrcode-color2" value="#FFFFFF"><br><br>
 
-<label for="qrcode-color3">Select QR code color for section 3:</label><br>
-<input type="color" id="qrcode-color3" value="#FF0000"><br><br>
+<label for="qrcode-color3">Select QR code background color:</label><br>
+<input type="color" id="qrcode-color3" value="#FFFFFF"><br><br>
 
 <label for="qrcode-logo">Upload logo for QR code (optional):</label><br>
 <input type="file" id="qrcode-logo"><br><br>
@@ -84,9 +84,7 @@
 
         qr._htOption.colorDark = color1;
         qr._htOption.colorLight = color2;
-        
-        // Set the color for the third section of the QR code
-        qr._htOption.color3 = color3;
+        qr._htOption.color3 = color3; // Background color
 
         document.getElementById('downloadBtn').style.display = 'block';
     }
