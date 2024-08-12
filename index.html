@@ -21,10 +21,10 @@
 <input type="text" id="qrcode-content" placeholder="Enter text or URL"><br><br>
 
 <label for="qrcode-color">Select QR code color for corners:</label><br>
-<input type="color" id="qrcode-color"><br><br>
+<input type="color" id="qrcode-color" value="#000000"><br><br>
 
 <label for="qrcode-inside-color">Select QR code color for inside:</label><br>
-<input type="color" id="qrcode-inside-color"><br><br>
+<input type="color" id="qrcode-inside-color" value="#FFFFFF"><br><br>
 
 <label for="qrcode-logo">Upload logo for QR code (optional):</label><br>
 <input type="file" id="qrcode-logo"><br><br>
@@ -32,6 +32,8 @@
 <button onclick="generateQRCode()">Generate QR Code</button><br><br>
 
 <div id="qrcode"></div>
+
+<button id="downloadBtn" style="display: none;" onclick="downloadQRCode()">Download QR Code</button>
 
 <script src="https://cdn.jsdelivr.net/npm/qrcode-generator"></script>
 <script>
@@ -51,7 +53,6 @@
         qrCodeDiv.innerHTML = qr.createImgTag(6, 0);
 
         var qrCodeImg = qrCodeDiv.querySelector('img');
-        qrCodeImg.style.filter = `invert(100%) sepia(100%) saturate(0%) hue-rotate(55deg) brightness(100%) contrast(100%)`;
         qrCodeImg.style.backgroundColor = cornerColor;
         qrCodeImg.style.color = insideColor;
 
@@ -75,6 +76,16 @@
             };
             reader.readAsDataURL(logo);
         }
+
+        document.getElementById('downloadBtn').style.display = 'block';
+    }
+
+    function downloadQRCode() {
+        var qrCodeImg = document.getElementById('qrcode').querySelector('img');
+        var link = document.createElement('a');
+        link.download = 'qr_code.png';
+        link.href = qrCodeImg.src;
+        link.click();
     }
 </script>
 </body>
