@@ -18,7 +18,7 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        max-width: 30%;
+        max-width: 50%;
     }
 </style>
 </head>
@@ -70,7 +70,7 @@
                 var logoImg = new Image();
                 logoImg.src = e.target.result;
                 logoImg.onload = function() {
-                    var logoSize = qr._htOption.width / 3; // Adjust the size of the logo here
+                    var logoSize = qr._htOption.width / 2; // Set logo size relative to QR code size
                     qr._htOption.logo = {
                         src: logoImg.src,
                         width: logoSize,
