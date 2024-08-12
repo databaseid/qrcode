@@ -70,7 +70,7 @@
                 var logoImg = new Image();
                 logoImg.src = e.target.result;
                 logoImg.onload = function() {
-                    var logoSize = qr._htOption.width / 2; // Set logo size relative to QR code size
+                    var logoSize = qr._htOption.width / 3; // Adjust the size of the logo here
                     qr._htOption.logo = {
                         src: logoImg.src,
                         width: logoSize,
