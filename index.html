@@ -1,100 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Custom QR Code Generator</title>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        text-align: center;
-    }
-    #qrcode {
-        margin: 20px auto;
-        position: relative;
-    }
-    #logo {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        max-width: 30%;
-    }
-</style>
-</head>
-<body>
-<h1>Custom QR Code Generator</h1>
-
-<label for="qrcode-content">Enter text or URL:</label><br>
-<input type="text" id="qrcode-content" placeholder="Enter text or URL"><br><br>
-
-<label for="qrcode-color">Select QR code color for points:</label><br>
-<input type="color" id="qrcode-color" value="#000000"><br><br>
-
-<label for="qrcode-inside-color">Select QR code background color:</label><br>
-<input type="color" id="qrcode-inside-color" value="#FFFFFF"><br><br>
-
-<label for="qrcode-corner-color">Select QR code color for corners:</label><br>
-<input type="color" id="qrcode-corner-color" value="#FF0000"><br><br>
-
-<label for="qrcode-logo">Upload logo for QR code (optional):</label><br>
-<input type="file" id="qrcode-logo"><br><br>
-
-<button onclick="generateQRCode()">Generate QR Code</button><br><br>
-
-<div id="qrcode"></div>
-
-<button id="downloadBtn" style="display: none;" onclick="downloadQRCode()">Download QR Code</button>
-
-<script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
-<script>
-    function generateQRCode() {
-        var content = document.getElementById('qrcode-content').value;
-        var color = document.getElementById('qrcode-color').value;
-        var insideColor = document.getElementById('qrcode-inside-color').value;
-        var cornerColor = document.getElementById('qrcode-corner-color').value;
-        var logo = document.getElementById('qrcode-logo').files[0];
-
-        var qr = new QRCode(document.getElementById("qrcode"), {
-            text: content,
-            width: 128,
-            height: 128,
-            colorDark: color,
-            colorLight: insideColor,
-            correctLevel: QRCode.CorrectLevel.L
-        });
-
-        if (logo) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                var logoImg = new Image();
-                logoImg.src = e.target.result;
-                logoImg.onload = function() {
-                    var logoSize = qr._htOption.width / 3;
-                    qr._htOption.logo = {
-                        src: logoImg.src,
-                        width: logoSize,
-                        height: logoSize
-                    };
-                    qr.makeCode(content);
-                };
-            };
-            reader.readAsDataURL(logo);
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom QR Code Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
         }
 
-        qr._htOption.colorDark = color;
-        qr._htOption.colorLight = insideColor;
-        qr._htOption.color3 = cornerColor;
+        #qr-input {
+            width: 80%;
+            max-width: 300px;
+            padding: 5px;
+            margin: 20px auto;
+        }
 
-        document.getElementById('downloadBtn').style.display = 'block';
-    }
+        #qr-code {
+            margin: 20px auto;
+        }
 
-    function downloadQRCode() {
-        var link = document.createElement('a');
-        link.download = 'qr_code.png';
-        link.href = document.getElementsByTagName('canvas')[0].toDataURL();
-        link.click();
-    }
-</script>
+        #logo-input {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Custom QR Code Generator</h1>
+    <input type="text" id="qr-input" placeholder="Enter URL or numbers">
+    <br>
+    <input type="color" id="qr-color" value="#000000"> QR Code Color
+    <br>
+    <input type="range" id="qr-size" min="200" max="600" value="300"> QR Code Size
+    <br>
+    <input type="file" id="logo-input"> Select Logo
+    <br>
+    <canvas id="qr-code"></canvas>
+
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    <script>
+        const qr = new QRCode(document.getElementById("qr-code"), {
+            width: 300,
+            height: 300
+        });
+
+        function generateQRCode() {
+            const input = document.getElementById("qr-input").value;
+            const color = document.getElementById("qr-color").value;
+            const size = document.getElementById("qr-size").value;
+            const logo = document.getElementById("logo-input").files[0];
+
+            qr.clear();
+            qr.makeCode(input);
+
+            const canvas = document.querySelector('canvas');
+            const ctx = canvas.getContext('2d');
+
+            ctx.fillStyle = color;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            if (logo) {
+                const logoImg = new Image();
+                logoImg.onload = function () {
+                    const logoSize = size * 0.2;
+                    const x = (size - logoSize) / 2;
+                    const y = (size - logoSize) / 2;
+
+                    ctx.drawImage(logoImg, x, y, logoSize, logoSize);
+                };
+                logoImg.src = URL.createObjectURL(logo);
+            }
+        }
+
+        document.getElementById("qr-input").addEventListener("input", generateQRCode);
+        document.getElementById("qr-color").addEventListener("change", generateQRCode);
+        document.getElementById("qr-size").addEventListener("input", generateQRCode);
+        document.getElementById("logo-input").addEventListener("change", generateQRCode);
+
+        generateQRCode();
+    </script>
 </body>
+
 </html>
