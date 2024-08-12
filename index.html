@@ -70,7 +70,7 @@
                 var logoImg = new Image();
                 logoImg.src = e.target.result;
                 logoImg.onload = function() {
-                    var logoSize = qr._htOption.width / 5; // Adjust the size of the logo here
+                    var logoSize = qr._htOption.width / 3;
                     qr._htOption.logo = {
                         src: logoImg.src,
                         width: logoSize,
@@ -84,7 +84,7 @@
 
         qr._htOption.colorDark = color;
         qr._htOption.colorLight = insideColor;
-        qr._htOption.color3 = cornerColor; // Corner color
+        qr._htOption.color3 = cornerColor;
 
         document.getElementById('downloadBtn').style.display = 'block';
     }
